@@ -44,3 +44,27 @@ var trailingZeroes = function(n) {
 执行用时 68 ms，超过87.13%用户
 内存消耗 34.1 MB 超过100%用户
 */
+
+/**
+有一点点不服。再小改一下。去掉递归。节约一点点内存。节约方法调用的上下文切换时间。
+*/
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var trailingZeroes = function(n) {
+    var result = 0;
+    while (n >= 5) {
+        n = Math.floor(n/5);
+        result += n;
+    }
+    return result;
+};
+
+/**
+执行用时 68 ms，超过87.13%用户
+内存消耗 34.2 MB 超过100%用户
+
+几乎没变
+*/
+
