@@ -37,7 +37,9 @@ public class LeetCode_0004_LengthOfLongestSubstring {
 
         assert 5 == solution.lengthOfLongestSubstring("tmmzuxt");
 
-        System.out.println(solution.lengthOfLongestSubstring("ggububgvfk"));
+        assert 6 == solution.lengthOfLongestSubstring("ggububgvfk");
+
+//        System.out.println(solution.lengthOfLongestSubstring("ggububgvfk"));
 
     }
 
@@ -47,8 +49,10 @@ public class LeetCode_0004_LengthOfLongestSubstring {
 class Solution {
 
     /**
-     * 执行用时 : 9 ms, 在所有 Java 提交中击败了 62.40% 的用户
-     * 内存消耗 : 40.9 MB , 在所有 Java 提交中击败了 5.20% 的用户
+     * 优化后，返回慢了
+     *
+     * 执行用时 : 97 ms, 在所有 Java 提交中击败了 15.26% 的用户
+     * 内存消耗 : 40.5 MB , 在所有 Java 提交中击败了 5.20% 的用户
      * */
     public int lengthOfLongestSubstring(String s) {
         int maxLen = 0;
@@ -73,7 +77,7 @@ class Solution {
                     char c2 = s.charAt(begin);
                     if (index.containsKey(c2)) {
                         end = begin + maxLen;
-                        begin = end;
+                        begin = end + 1;
                         index.clear();
                     } else {
                         index.put(c2, begin);
