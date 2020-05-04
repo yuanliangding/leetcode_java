@@ -29,24 +29,17 @@ public class LeetCode_0004_LengthOfLongestSubstring {
     public static void main(String[] args) {
         Solution solution = new Solution();
 
-        System.out.println(
-                solution.lengthOfLongestSubstring("abcabcbb")
-        );
+        assert 3 == solution.lengthOfLongestSubstring("abcabcbb");
 
-        System.out.println(
-                solution.lengthOfLongestSubstring("bbbbb")
-        );
+        assert 1 == solution.lengthOfLongestSubstring("bbbbb");
 
-        System.out.println(
-                solution.lengthOfLongestSubstring("pwwkew")
-        );
+        assert 3 == solution.lengthOfLongestSubstring("pwwkew");
 
-        //5 提交时报错
-        System.out.println(
-                solution.lengthOfLongestSubstring("tmmzuxt")
-        );
+        assert 5 == solution.lengthOfLongestSubstring("tmmzuxt");
+
+        System.out.println(solution.lengthOfLongestSubstring("ggububgvfk"));
+
     }
-
 
 
 }
@@ -90,7 +83,7 @@ class Solution {
                 index.put(c, end);
                 if (maxLen < end - begin + 1) {
                     maxLen = end - begin + 1;
-                    System.out.println(s.substring(begin, end + 1));
+//                    System.out.println(s.substring(begin, end + 1));
                 }
             }
         }
