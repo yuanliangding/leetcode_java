@@ -1,7 +1,7 @@
 import java.util.HashMap;
 import java.util.Map;
 
-public class LeetCode_0004_LengthOfLongestSubstring {
+public class LeetCode_0003_LengthOfLongestSubstring {
 
     /**
      * 3. 无重复字符的最长子串
@@ -27,81 +27,65 @@ public class LeetCode_0004_LengthOfLongestSubstring {
      * */
 
     public static void main(String[] args) {
-        Solution solution = new Solution();
 
-        assert 3 == solution.lengthOfLongestSubstring("abcabcbb");
+        class Solution {
 
-        assert 1 == solution.lengthOfLongestSubstring("bbbbb");
+            /**
+             *
+             * 执行用时 : 97 ms, 在所有 Java 提交中击败了 15.26% 的用户
+             * 内存消耗 : 40.5 MB , 在所有 Java 提交中击败了 5.20% 的用户
+             * */
+            public int lengthOfLongestSubstring(String s) {
+                int maxLen = 0;
+                int begin = 0;
+                int end = -1;
+                Map<Character, Integer> index = new HashMap<>();
+                while (++end < s.length()) {
+                    char c = s.charAt(end);
+                    if (index.containsKey(c)) {
 
-        assert 3 == solution.lengthOfLongestSubstring("pwwkew");
-
-        assert 5 == solution.lengthOfLongestSubstring("tmmzuxt");
-
-        assert 6 == solution.lengthOfLongestSubstring("ggububgvfk");
-
-    }
-
-
-}
-
-class Solution {
-
-    /**
-     *
-     * 执行用时 : 97 ms, 在所有 Java 提交中击败了 15.26% 的用户
-     * 内存消耗 : 40.5 MB , 在所有 Java 提交中击败了 5.20% 的用户
-     * */
-    public int lengthOfLongestSubstring(String s) {
-        int maxLen = 0;
-        int begin = 0;
-        int end = -1;
-        Map<Character, Integer> index = new HashMap<>();
-        while (++end < s.length()) {
-            char c = s.charAt(end);
-            if (index.containsKey(c)) {
-
-                int i = index.get(c);
-                end += i - begin + 1;
-                if (end >= s.length()) {
-                    break;
-                }
-                begin = end + 1;
-                index.clear();
-
-                while (end - begin < maxLen) {
-                    --begin;
-
-                    char c2 = s.charAt(begin);
-                    if (index.containsKey(c2)) {
-                        end = begin + maxLen + 1;
+                        int i = index.get(c);
+                        end += i - begin + 1;
                         if (end >= s.length()) {
                             break;
                         }
                         begin = end + 1;
                         index.clear();
+
+                        while (end - begin < maxLen) {
+                            --begin;
+
+                            char c2 = s.charAt(begin);
+                            if (index.containsKey(c2)) {
+                                end = begin + maxLen + 1;
+                                if (end >= s.length()) {
+                                    break;
+                                }
+                                begin = end + 1;
+                                index.clear();
+                            } else {
+                                index.put(c2, begin);
+                            }
+                        }
                     } else {
-                        index.put(c2, begin);
+                        index.put(c, end);
+                    }
+
+                    if (maxLen < index.size()) {
+                        maxLen = index.size();
+//                System.out.println(s.substring(begin, end + 1));
                     }
                 }
-            } else {
-                index.put(c, end);
+
+                return maxLen;
             }
 
-            if (maxLen < index.size()) {
-                maxLen = index.size();
-//                System.out.println(s.substring(begin, end + 1));
-            }
-        }
-
-        return maxLen;
-    }
-
-    /**
-     * 优化后，返回慢了
-     *
-     * 执行用时 : 97 ms, 在所有 Java 提交中击败了 15.26% 的用户
-     * 内存消耗 : 40.5 MB , 在所有 Java 提交中击败了 5.20% 的用户
-     * */
+            /**
+             * 优化后，返回慢了
+             *
+             * 执行用时 : 97 ms, 在所有 Java 提交中击败了 15.26% 的用户
+             * 内存消耗 : 40.5 MB , 在所有 Java 提交中击败了 5.20% 的用户
+             * */
 //    public int lengthOfLongestSubstring(String s) {
 //        int maxLen = 0;
 //        int begin = 0;
@@ -144,10 +128,10 @@ class Solution {
 //    }
 
 
-    /**
-     * 执行用时 : 9 ms, 在所有 Java 提交中击败了 62.40% 的用户
-     * 内存消耗 : 40.9 MB , 在所有 Java 提交中击败了 5.20% 的用户
-     * */
+            /**
+             * 执行用时 : 9 ms, 在所有 Java 提交中击败了 62.40% 的用户
+             * 内存消耗 : 40.9 MB , 在所有 Java 提交中击败了 5.20% 的用户
+             * */
 //    public int lengthOfLongestSubstring(String s) {
 //        int maxLen = 0;
 //        int begin = 0;
@@ -172,4 +156,27 @@ class Solution {
 //
 //        return maxLen;
 //    }
+        }
+
+        Solution solution = new Solution();
+
+        assert 3 == solution.lengthOfLongestSubstring("abcabcbb");
+
+        assert 1 == solution.lengthOfLongestSubstring("bbbbb");
+
+        assert 3 == solution.lengthOfLongestSubstring("pwwkew");
+
+        assert 5 == solution.lengthOfLongestSubstring("tmmzuxt");
+
+        assert 6 == solution.lengthOfLongestSubstring("ggububgvfk");
+
+
+
+
+
+    }
+
+
+
+
 }
