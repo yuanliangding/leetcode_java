@@ -30,6 +30,10 @@ public class LeetCode_0003_LengthOfLongestSubstring {
 
         class Solution {
 
+            /**
+             * 执行用时 : 125 ms, 在所有 Java 提交中击败了 12.20% 的用户
+             * 内存消耗 : 49 MB , 在所有 Java 提交中击败了 5.20% 的用户
+             * */
             public int lengthOfLongestSubstring(String s) {
                 int maxLen = 0;
                 int begin = 0;
