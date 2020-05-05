@@ -32,8 +32,6 @@ public class LeetCode_0003_LengthOfLongestSubstring {
 
             /**
              *
-             * 执行用时 : 97 ms, 在所有 Java 提交中击败了 15.26% 的用户
-             * 内存消耗 : 40.5 MB , 在所有 Java 提交中击败了 5.20% 的用户
              * */
             public int lengthOfLongestSubstring(String s) {
                 int maxLen = 0;
@@ -43,42 +41,101 @@ public class LeetCode_0003_LengthOfLongestSubstring {
                 while (++end < s.length()) {
                     char c = s.charAt(end);
                     if (index.containsKey(c)) {
-
                         int i = index.get(c);
-                        end += i - begin + 1;
-                        if (end >= s.length()) {
-                            break;
-                        }
-                        begin = end + 1;
-                        index.clear();
-
-                        while (end - begin < maxLen) {
-                            --begin;
-
-                            char c2 = s.charAt(begin);
-                            if (index.containsKey(c2)) {
-                                end = begin + maxLen + 1;
-                                if (end >= s.length()) {
-                                    break;
-                                }
-                                begin = end + 1;
-                                index.clear();
-                            } else {
-                                index.put(c2, begin);
-                            }
-                        }
-                    } else {
-                        index.put(c, end);
+                        MoveResult moveResult = tryMove(s, i+1, maxLen+1);
+                        begin = moveResult.start;
+                        end = moveResult.end;
+                        index = moveResult.index;
                     }
+                    index.put(c, end);
 
                     if (maxLen < index.size()) {
                         maxLen = index.size();
-//                System.out.println(s.substring(begin, end + 1));
+                System.out.println(s.substring(begin, end + 1));
                     }
                 }
 
                 return maxLen;
             }
+
+            class MoveResult {
+                Map<Character, Integer> index;
+                int start;
+                int end;
+                MoveResult(Map<Character, Integer> index, int start, int end){
+                    this.index = index;
+                    this.start = start;
+                    this.end = end;
+                }
+            }
+
+            private MoveResult tryMove(String s, int start, int len) {
+                Map<Character, Integer> index = new HashMap<>();
+                int last = start+len-1;
+                if (last >= s.length()) {
+                    return new MoveResult(index, s.length()-1, s.length()-1);
+                }
+                for (int i=last;i>=start;--i) {
+                    char c = s.charAt(i);
+                    if (index.containsKey(c)) {
+                        return tryMove(s, i+1, len);
+                    } else {
+                        index.put(c, i);
+                    }
+                }
+
+                return new MoveResult(index, start, last);
+            }
+
+            /**
+             *
+             * 执行用时 : 97 ms, 在所有 Java 提交中击败了 15.26% 的用户
+             * 内存消耗 : 40.5 MB , 在所有 Java 提交中击败了 5.20% 的用户
+             * */
+//            public int lengthOfLongestSubstring(String s) {
+//                int maxLen = 0;
+//                int begin = 0;
+//                int end = -1;
+//                Map<Character, Integer> index = new HashMap<>();
+//                while (++end < s.length()) {
+//                    char c = s.charAt(end);
+//                    if (index.containsKey(c)) {
+//
+//                        int i = index.get(c);
+//                        end += i - begin + 1;
+//                        if (end >= s.length()) {
+//                            break;
+//                        }
+//                        begin = end + 1;
+//                        index.clear();
+//
+//                        while (end - begin < maxLen) {
+//                            --begin;
+//
+//                            char c2 = s.charAt(begin);
+//                            if (index.containsKey(c2)) {
+//                                end = begin + maxLen + 1;
+//                                if (end >= s.length()) {
+//                                    break;
+//                                }
+//                                begin = end + 1;
+//                                index.clear();
+//                            } else {
+//                                index.put(c2, begin);
+//                            }
+//                        }
+//                    } else {
+//                        index.put(c, end);
+//                    }
+//
+//                    if (maxLen < index.size()) {
+//                        maxLen = index.size();
+////                System.out.println(s.substring(begin, end + 1));
+//                    }
+//                }
+//
+//                return maxLen;
+//            }
 
             /**
              * 优化后，返回慢了
@@ -171,6 +228,7 @@ public class LeetCode_0003_LengthOfLongestSubstring {
         assert 6 == solution.lengthOfLongestSubstring("ggububgvfk");
 
 
+        System.out.println(solution.lengthOfLongestSubstring("ggububgvfk"));
 
 
 
