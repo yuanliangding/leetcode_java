@@ -30,9 +30,6 @@ public class LeetCode_0003_LengthOfLongestSubstring {
 
         class Solution {
 
-            /**
-             *
-             * */
             public int lengthOfLongestSubstring(String s) {
                 int maxLen = 0;
                 int begin = 0;
@@ -46,6 +43,7 @@ public class LeetCode_0003_LengthOfLongestSubstring {
                         begin = moveResult.start;
                         end = moveResult.end;
                         index = moveResult.index;
+                        c = s.charAt(end);
                     }
                     index.put(c, end);
 
@@ -227,9 +225,10 @@ public class LeetCode_0003_LengthOfLongestSubstring {
 
         assert 6 == solution.lengthOfLongestSubstring("ggububgvfk");
 
+        assert 6 == solution.lengthOfLongestSubstring("bbtablud");
 
-        System.out.println(solution.lengthOfLongestSubstring("ggububgvfk"));
 
+        System.out.println(solution.lengthOfLongestSubstring("bbtablud"));
 
 
     }
